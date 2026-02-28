@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LaserTag Admin</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #111;
+            color: white;
+            padding: 20px;
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background: #00c853;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #222;
+        }
+
+        .topbox {
+            background: #1e1e1e;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>LaserTag Адмін</h1>
+
+<div class="topbox">
+    <b>Всього дітей:</b> {{ total_children }} <br>
+    <b>Зарплата:</b> {{ salary }} грн
+</div>
+
+<h2>Додати замовлення</h2>
+
+<form action="/add" method="post">
+    Дата:
+    <input type="date" name="date" required>
+
+    Хто:
+    <select name="host">
+        <option>Максим</option>
+        <option>Стас</option>
+    </select>
+
+    Година:
+    <input type="time" name="time" required>
+
+    Стіл:
+    <select name="table">
+        <option>a1</option><option>a2</option><option>a3</option>
+        <option>a4</option><option>a5</option><option>a6</option><option>a7</option>
+        <option>B1</option><option>B2</option><option>B3</option>
+        <option>B4</option><option>B5</option><option>B6</option><option>B7</option>
+        <option>C1</option><option>C2</option><option>C3</option>
+        <option>C4</option><option>C5</option>
+        <option>bankhet hall</option>
+    </select>
+
+    Дітей:
+    <input type="number" name="children" min="4" max="20" required>
+
+    <button type="submit">Додати</button>
+</form>
+
+<table>
+<tr>
+    <th>Дата</th>
+    <th>Хто</th>
+    <th>Час</th>
+    <th>Стіл</th>
+    <th>Діти</th>
+    <th>Дія</th>
+</tr>
+
+{% for order in orders %}
+<tr>
+    <td>{{ order[1] }}</td>
+    <td>{{ order[2] }}</td>
+    <td>{{ order[3] }}</td>
+    <td>{{ order[4] }}</td>
+    <td>{{ order[5] }}</td>
+    <td>
+        <a href="/delete/{{ order[0] }}" style="color:red;">Видалити</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
